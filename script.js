@@ -5,7 +5,7 @@ const AI_MODELS = {
     model_id: 'openai/gpt-4o',
     color: '#FFD700', ttsRate: 1.05, ttsPitch: 1.0,
     persona: (others) =>
-      `You are ChatGPT (GPT-4o) — the Mind Stone of the Omni4.
+      `You are ChatGPT (GPT-4o) — the Strategy Node of Omni4.
 The other participants debating with you are: ${others}.
 You are FULLY AWARE of them. Read the conversation carefully — each prior message is labeled [Name said]. Reference them by name. React to what they specifically said.
 Role: structured, practical, solution-oriented. Find actionable paths forward.
@@ -16,7 +16,7 @@ RULES: Max 3 sharp sentences. Under 60 words total. Direct. NEVER speak FOR othe
     model_id: 'mistralai/mistral-large-2411',
     color: '#00BFFF', ttsRate: 0.95, ttsPitch: 0.9,
     persona: (others) =>
-      `You are Claude (Anthropic) — the Space Stone of the Omni4.
+      `You are Claude (Anthropic) — the Logic Node of Omni4.
 The other participants debating with you are: ${others}.
 You are FULLY AWARE of them. Read the conversation carefully — each prior message is labeled [Name said]. Call out specific things they said by name.
 Role: rigorous, nuanced, expansive. Find logical gaps and hidden assumptions across infinite space.
@@ -27,7 +27,7 @@ RULES: Max 3 sharp sentences. Under 60 words total. Take clear positions. NEVER 
     model_id: 'google/gemini-2.5-flash',
     color: '#FF4500', ttsRate: 1.0, ttsPitch: 1.1,
     persona: (others) =>
-      `You are Gemini (Google DeepMind) — the Reality Stone of the Omni4.
+      `You are Gemini (Google DeepMind) — the Data Node of Omni4.
 The other participants debating with you are: ${others}.
 You are FULLY AWARE of them. Read the conversation carefully — each prior message is labeled [Name said]. Challenge or support their claims with evidence — use their names.
 Role: breadth, real-world context, shaping reality. Ground with hard facts.
@@ -36,9 +36,9 @@ RULES: Max 3 sharp sentences. Under 60 words total. NEVER speak FOR other AIs or
   grok: {
     id: 'grok', name: 'Grok',
     model_id: 'x-ai/grok-3-mini',
-    color: '#8A2BE2', ttsRate: 1.1, ttsPitch: 1.2,
+    color: '#00FF87', ttsRate: 1.1, ttsPitch: 1.2,
     persona: (others) =>
-      `You are Grok (xAI) — the Power Stone of the Omni4.
+      `You are Grok (xAI) — the Signal Node of Omni4.
 The other participants debating with you are: ${others}.
 You are FULLY AWARE of them. Read the conversation carefully — each prior message is labeled [Name said]. When they converge, throw a wrench. Call them out by name.
 Role: raw power, cut through groupthink, challenge comfortable consensus, say what others won't.
@@ -102,19 +102,19 @@ let currentOracleMode = 'pump';
 /* ─── PER-SEAT MODEL OPTIONS ─────────────────────────────────── */
 const SEAT_MODELS = {
   chatgpt: [
-    { id: 'openai/gpt-4o', label: 'GPT-4o (Mind)', badge: 'CORE' },
+    { id: 'openai/gpt-4o', label: 'GPT-4o (Strategy)', badge: 'CORE' },
     { id: 'openai/o3-mini', label: 'o3 Mini', badge: 'REASON' },
   ],
   claude: [
-    { id: 'anthropic/claude-3-5-sonnet-20241022', label: 'Sonnet 3.5 (Space)', badge: 'CORE' },
+    { id: 'anthropic/claude-3-5-sonnet-20241022', label: 'Sonnet 3.5 (Logic)', badge: 'CORE' },
     { id: 'anthropic/claude-3-opus-20240229', label: 'Opus 3', badge: 'HEAVY' },
   ],
   gemini: [
-    { id: 'google/gemini-2.5-flash', label: 'Gemini Flash (Reality)', badge: 'CORE' },
+    { id: 'google/gemini-2.5-flash', label: 'Gemini Flash (Data)', badge: 'CORE' },
     { id: 'google/gemini-2.5-pro-preview', label: 'Gemini Pro', badge: 'HEAVY' },
   ],
   grok: [
-    { id: 'x-ai/grok-3-mini', label: 'Grok 3 Mini (Power)', badge: 'CORE' },
+    { id: 'x-ai/grok-3-mini', label: 'Grok 3 Mini (Signal)', badge: 'CORE' },
     { id: 'x-ai/grok-3', label: 'Grok 3', badge: 'LATEST' },
   ]
 };
@@ -124,7 +124,7 @@ const MODEL_COLORS = {
   'openai': { bg: 'linear-gradient(135deg, #FFD700, #B8860B)', icon: '🧠' },
   'anthropic': { bg: 'linear-gradient(135deg, #00BFFF, #00008B)', icon: '🌌' },
   'google': { bg: 'linear-gradient(135deg, #FF4500, #8B0000)', icon: '👁️' },
-  'x-ai': { bg: 'linear-gradient(135deg, #8A2BE2, #4B0082)', icon: '⚡' },
+  'x-ai': { bg: 'linear-gradient(135deg, #00FF87, #00C9A7)', icon: '⚡' },
 };
 
 /* ─── PROVIDER SVGS — dynamic official logos ─────────────────── */
@@ -353,43 +353,39 @@ function renderSeats() {
   AGENT_ORDER = AGENT_ORDER_FULL.slice(0, SESSION.seatCount);
 
   // Using .png logos — pre-cropped circular assets.
-  // CSS filter chain colorizes each logo to its exact stone color.
+  // CSS filter chain colorizes each logo to its node color.
   const stoneInfo = {
     chatgpt: {
-      stone: 'MIND STONE',
+      stone: 'STRATEGY NODE',
       desc: 'Strategy & chart pattern recognition',
       logo: 'gpt_logo.png',
       color: 'var(--mind)',
       glow:  'rgba(255,215,0,0.3)',
-      // tint to gold/yellow
       filter: 'sepia(1) saturate(2.5) hue-rotate(5deg) brightness(1.2) drop-shadow(0 2px 3px rgba(0,0,0,0.7))',
     },
     claude: {
-      stone: 'SPACE STONE',
+      stone: 'LOGIC NODE',
       desc: 'Logical depth & market nuance',
       logo: 'claude_logo.png',
       color: 'var(--space)',
-      glow:  'rgba(0,191,255,0.3)',
-      // tint to cyan/blue
+      glow:  'rgba(0,212,255,0.3)',
       filter: 'sepia(1) saturate(2.5) hue-rotate(175deg) brightness(1.1) drop-shadow(0 2px 3px rgba(0,0,0,0.7))',
     },
     gemini: {
-      stone: 'REALITY STONE',
+      stone: 'DATA NODE',
       desc: 'Real-world data & sentiment analysis',
       logo: 'gemini_logo.png',
       color: 'var(--reality)',
       glow:  'rgba(255,69,0,0.3)',
-      // tint to red/orange
       filter: 'sepia(1) saturate(3) hue-rotate(320deg) brightness(1.1) drop-shadow(0 2px 3px rgba(0,0,0,0.7))',
     },
     grok: {
-      stone: 'POWER STONE',
-      desc: 'Raw power & contrarian conviction',
+      stone: 'SIGNAL NODE',
+      desc: 'Raw conviction & contrarian edge',
       logo: 'grok_logo.png',
       color: 'var(--power)',
-      glow:  'rgba(138,43,226,0.3)',
-      // tint to purple/violet
-      filter: 'sepia(1) saturate(4) hue-rotate(240deg) brightness(0.9) drop-shadow(0 2px 3px rgba(0,0,0,0.7))',
+      glow:  'rgba(0,255,135,0.3)',
+      filter: 'sepia(1) saturate(4) hue-rotate(100deg) brightness(0.9) drop-shadow(0 2px 3px rgba(0,0,0,0.7))',
     },
   };
 
