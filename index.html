@@ -10,8 +10,8 @@
     <link rel="icon" type="image/png" href="icx4ai_favicon.png">
     <link rel="apple-touch-icon" href="icx4ai_favicon.png">
     <meta property="og:title" content="Omni4 – Multi-AI Trading Terminal">
-    <meta property="og:description" content="Four AI minds. One decision. No fluff. The terminal for $ICx4Ai.">
-    <meta property="og:image" content="icx4ai_logo_square.jpg">
+    <meta property="og:description" content="Four AI minds. One decision. No fluff. The Omni4 terminal.">
+    <meta property="og:image" content="omni4_logo.png">
     <meta name="twitter:card" content="summary_large_image">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -76,7 +76,7 @@
             text-decoration:none;
             transition:all 0.2s;
         }
-        .nav-cta:hover { background:#7c22d4; transform:translateY(-1px); box-shadow:0 6px 20px rgba(155,48,255,0.4); }
+        .nav-cta:hover { background:#00c96b; transform:translateY(-1px); box-shadow:0 6px 20px rgba(0,255,135,0.4); }
 
         /* ── LAYOUT ── */
         .wrapper { position:relative; z-index:1; }
@@ -91,16 +91,16 @@
         }
         .hero-badge {
             display:inline-flex; align-items:center; gap:0.5rem;
-            background:rgba(155,48,255,0.12);
-            border:1px solid rgba(155,48,255,0.35);
-            color:#c084fc; font-size:0.75rem; font-weight:700;
+            background:rgba(0,255,135,0.1);
+            border:1px solid rgba(0,255,135,0.3);
+            color:#6effc0; font-size:0.75rem; font-weight:700;
             letter-spacing:1px; text-transform:uppercase;
             padding:0.4rem 1.2rem; border-radius:99px;
             margin-bottom:2.5rem;
         }
         .hero-badge-dot {
             width:6px; height:6px; border-radius:50%;
-            background:#c084fc; animation:blink 2s infinite;
+            background:#6effc0; animation:blink 2s infinite;
         }
         @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
 
@@ -113,7 +113,7 @@
             max-width:1000px;
         }
         .hero-title .highlight {
-            background: linear-gradient(90deg, var(--power), #e879f9);
+            background: linear-gradient(90deg, var(--power), var(--space));
             -webkit-background-clip:text; background-clip:text;
             -webkit-text-fill-color:transparent;
         }
@@ -136,7 +136,7 @@
             text-decoration:none; transition:all 0.2s;
             display:flex; align-items:center; gap:0.6rem;
         }
-        .btn-primary:hover { background:#7c22d4; transform:translateY(-2px); box-shadow:0 12px 30px rgba(155,48,255,0.45); }
+        .btn-primary:hover { background:#00c96b; transform:translateY(-2px); box-shadow:0 12px 30px rgba(0,255,135,0.45); }
         .btn-secondary {
             background:rgba(255,255,255,0.05); color:#fff;
             font-weight:600; font-size:1.05rem;
@@ -181,16 +181,16 @@
         .feature-box:hover { transform:translateY(-5px); border-color:var(--power); }
         .feature-icon {
             width:56px; height:56px; border-radius:14px;
-            background:rgba(155,48,255,0.15); border:1px solid rgba(155,48,255,0.3);
+            background:rgba(0,255,135,0.1); border:1px solid rgba(0,255,135,0.25);
             display:flex; align-items:center; justify-content:center;
-            font-size:1.4rem; color:#d8b4fe; margin-bottom:1.5rem;
+            font-size:1.4rem; color:#6effc0; margin-bottom:1.5rem;
         }
         .feature-title { font-size:1.3rem; font-weight:700; color:#fff; margin-bottom:1rem; }
         .feature-desc { font-size:0.95rem; color:rgba(255,255,255,0.6); line-height:1.7; }
 
         /* ── DATA PANEL (VISUAL) ── */
         .data-showcase {
-            background: #0d0d16; border:1px solid rgba(155,48,255,0.3);
+            background: #060f0a; border:1px solid rgba(0,255,135,0.25);
             border-radius:20px; overflow:hidden;
             box-shadow: 0 30px 60px rgba(0,0,0,0.6);
             margin-top: 5rem;
@@ -263,7 +263,7 @@
         .info-list li { display:flex; gap:1rem; margin-bottom:1rem; font-size:1.05rem; font-weight:500; }
         .info-list i { color:var(--power); font-size:1.2rem; }
         .info-visual { background:var(--panel); border:1px solid rgba(255,255,255,0.1); border-radius:24px; padding:3rem; position:relative; overflow:hidden; }
-        .info-visual::after { content:''; position:absolute; top:0; right:0; width:300px; height:300px; background:radial-gradient(circle, rgba(155,48,255,0.2), transparent 70%); }
+        .info-visual::after { content:''; position:absolute; top:0; right:0; width:300px; height:300px; background:radial-gradient(circle, rgba(0,255,135,0.15), transparent 70%); }
         
         @media (max-width: 900px) {
             .info-grid { grid-template-columns: 1fr; gap:2rem; }
@@ -274,7 +274,7 @@
             /* ── NAV ── */
             nav { padding: 0 1.25rem; height: 65px; background: rgba(10,10,20,0.95); }
             .nav-link { display: none; }
-            .nav-cta { padding: 0.5rem 1rem; font-size: 0.75rem; border-radius: 6px; box-shadow: 0 0 15px rgba(155,48,255,0.2); }
+            .nav-cta { padding: 0.5rem 1rem; font-size: 0.75rem; border-radius: 6px; box-shadow: 0 0 15px rgba(0,255,135,0.2); }
             .nav-brand { gap: 0.5rem; }
             
             /* ── HERO OVERHAUL ── */
@@ -285,8 +285,8 @@
                 margin-bottom: 2rem; 
                 font-size: 0.7rem; 
                 padding: 0.4rem 1rem; 
-                background: rgba(155,48,255,0.08);
-                border-color: rgba(155,48,255,0.25);
+                background: rgba(0,255,135,0.07);
+                border-color: rgba(0,255,135,0.2);
                 backdrop-filter: blur(10px);
             }
             
@@ -304,7 +304,7 @@
                 border-radius: 12px;
             }
             .btn-primary {
-                box-shadow: 0 4px 25px rgba(155,48,255,0.3);
+                box-shadow: 0 4px 25px rgba(0,255,135,0.3);
             }
             .btn-secondary {
                 background: rgba(255,255,255,0.03);
@@ -428,14 +428,14 @@
             </div>
             <div style="margin-top:2.5rem; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:0.75rem;">
                 <!-- Ticker pill -->
-                <div style="display:flex;align-items:center;gap:0.5rem;background:rgba(155,48,255,0.12);border:1px solid rgba(155,48,255,0.3);padding:0.45rem 1.1rem;border-radius:99px;">
-                    <div style="width:7px;height:7px;border-radius:50%;background:#9B30FF;box-shadow:0 0 8px #9B30FF;animation:blink 2s infinite;"></div>
-                    <span style="font-size:0.85rem;font-weight:800;letter-spacing:2px;color:#c084fc;">$ICx4Ai</span>
+                <div style="display:flex;align-items:center;gap:0.5rem;background:rgba(0,255,135,0.1);border:1px solid rgba(0,255,135,0.25);padding:0.45rem 1.1rem;border-radius:99px;">
+                    <div style="width:7px;height:7px;border-radius:50%;background:#00FF87;box-shadow:0 0 8px #00FF87;animation:blink 2s infinite;"></div>
+                    <span style="font-size:0.85rem;font-weight:800;letter-spacing:2px;color:#6effc0;">OMNI4</span>
                 </div>
                 <!-- X / Twitter link -->
-                <a href="https://x.com/ICx4Ai" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:0.5rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);padding:0.45rem 1.1rem;border-radius:99px;text-decoration:none;color:#fff;font-size:0.85rem;font-weight:600;transition:all 0.2s;" onmouseover="this.style.borderColor='#c084fc';this.style.color='#c084fc'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='#fff'">
+                <a href="https://x.com/Omni4AI" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:0.5rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);padding:0.45rem 1.1rem;border-radius:99px;text-decoration:none;color:#fff;font-size:0.85rem;font-weight:600;transition:all 0.2s;" onmouseover="this.style.borderColor='#6effc0';this.style.color='#6effc0'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='#fff'">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.261 5.632 5.903-5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                    @ICx4Ai
+                    @Omni4AI
                 </a>
                 <!-- CA copy box -->
                 <div id="ca-box" onclick="navigator.clipboard.writeText('TBA'); this.querySelector('.ca-label').textContent='Copied!'; setTimeout(()=>this.querySelector('.ca-label').textContent='CA: TBA — Click to copy',2000);"
@@ -495,11 +495,11 @@
             </div>
         </section>
 
-        <!-- THE STONES -->
+        <!-- THE NODES -->
         <section class="section section-dark" id="the-council">
-            <p class="section-label">The Agents & The Stones</p>
-            <h2 class="section-title">Wield the Infinite</h2>
-            <p class="section-p">Each AI governs a fundamental aspect of market reality, represented by a unique Infinity Stone. Separated, their analyses are powerful but narrow. United in the gauntlet of the Omni4, they converge to form an unstoppable, omniscient intelligence pipeline.</p>
+            <p class="section-label">The Agent Network</p>
+            <h2 class="section-title">Four Nodes. One Signal.</h2>
+            <p class="section-p">Each AI is a specialized intelligence node, hardwired to attack the market from a different angle. Separated, their analyses are sharp but narrow. Merged by Omni4, they converge into one unstoppable signal pipeline.</p>
             
             <div class="stones-grid">
                 <div class="stone-card mind">
@@ -507,17 +507,17 @@
                         <img src="gpt_logo.png" alt="ChatGPT" style="filter:sepia(1) saturate(2.5) hue-rotate(5deg) brightness(1.2) drop-shadow(0 2px 3px rgba(0,0,0,0.7));">
                     </div>
                     <div>
-                        <div class="stone-tag" style="background:rgba(255,215,0,0.1);color:var(--mind);">MIND STONE</div>
+                        <div class="stone-tag" style="background:rgba(255,215,0,0.1);color:var(--mind);">STRATEGY NODE</div>
                         <div class="stone-name">ChatGPT</div>
                     </div>
                     <p class="stone-desc">Strategy & chart pattern recognition. Finds actionable paths through market noise. Calculates risk-to-reward ratios efficiently.</p>
                 </div>
                 <div class="stone-card space">
-                    <div class="stone-avatar" style="border-color:var(--space);box-shadow:0 0 16px rgba(0,191,255,0.2);">
+                    <div class="stone-avatar" style="border-color:var(--space);box-shadow:0 0 16px rgba(0,212,255,0.2);">
                         <img src="claude_logo.png" alt="Claude" style="filter:sepia(1) saturate(2.5) hue-rotate(175deg) brightness(1.1) drop-shadow(0 2px 3px rgba(0,0,0,0.7));">
                     </div>
                     <div>
-                        <div class="stone-tag" style="background:rgba(0,191,255,0.1);color:var(--space);">SPACE STONE</div>
+                        <div class="stone-tag" style="background:rgba(0,212,255,0.1);color:var(--space);">LOGIC NODE</div>
                         <div class="stone-name">Claude</div>
                     </div>
                     <p class="stone-desc">Logical depth & market nuance. Finds hidden assumptions others miss. Often the voice of risk management and fundamental logic.</p>
@@ -527,20 +527,20 @@
                         <img src="gemini_logo.png" alt="Gemini" style="filter:sepia(1) saturate(3) hue-rotate(320deg) brightness(1.1) drop-shadow(0 2px 3px rgba(0,0,0,0.7));">
                     </div>
                     <div>
-                        <div class="stone-tag" style="background:rgba(255,69,0,0.1);color:var(--reality);">REALITY STONE</div>
+                        <div class="stone-tag" style="background:rgba(255,69,0,0.1);color:var(--reality);">DATA NODE</div>
                         <div class="stone-name">Gemini</div>
                     </div>
                     <p class="stone-desc">Real-world data & sentiment. Grounds the debate with hard facts. Pulls in macroeconomic correlations and sector trends.</p>
                 </div>
                 <div class="stone-card power">
-                    <div class="stone-avatar" style="border-color:var(--power);box-shadow:0 0 16px rgba(155,48,255,0.2);">
-                        <img src="grok_logo.png" alt="Grok" style="filter:sepia(1) saturate(4) hue-rotate(240deg) brightness(0.9) drop-shadow(0 2px 3px rgba(0,0,0,0.7));">
+                    <div class="stone-avatar" style="border-color:var(--power);box-shadow:0 0 16px rgba(0,255,135,0.2);">
+                        <img src="grok_logo.png" alt="Grok" style="filter:sepia(1) saturate(4) hue-rotate(100deg) brightness(0.9) drop-shadow(0 2px 3px rgba(0,0,0,0.7));">
                     </div>
                     <div>
-                        <div class="stone-tag" style="background:rgba(155,48,255,0.1);color:var(--power);">POWER STONE</div>
+                        <div class="stone-tag" style="background:rgba(0,255,135,0.1);color:var(--power);">SIGNAL NODE</div>
                         <div class="stone-name">Grok</div>
                     </div>
-                    <p class="stone-desc">Raw power & contrarian conviction. Cuts through consensus and groupthink. Tuned specifically for Crypto Twitter narratives and degen plays.</p>
+                    <p class="stone-desc">Raw conviction & contrarian edge. Cuts through consensus and groupthink. Tuned specifically for Crypto Twitter narratives and degen plays.</p>
                 </div>
             </div>
         </section>
