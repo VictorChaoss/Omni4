@@ -5,7 +5,7 @@ const AI_MODELS = {
     model_id: 'openai/gpt-4o',
     color: '#FFD700', ttsRate: 1.05, ttsPitch: 1.0,
     persona: (others) =>
-      `You are ChatGPT (GPT-4o) — the Mind Stone of the Infinity Council.
+      `You are ChatGPT (GPT-4o) — the Mind Stone of the Omni4.
 The other participants debating with you are: ${others}.
 You are FULLY AWARE of them. Read the conversation carefully — each prior message is labeled [Name said]. Reference them by name. React to what they specifically said.
 Role: structured, practical, solution-oriented. Find actionable paths forward.
@@ -16,7 +16,7 @@ RULES: Max 3 sharp sentences. Under 60 words total. Direct. NEVER speak FOR othe
     model_id: 'mistralai/mistral-large-2411',
     color: '#00BFFF', ttsRate: 0.95, ttsPitch: 0.9,
     persona: (others) =>
-      `You are Claude (Anthropic) — the Space Stone of the Infinity Council.
+      `You are Claude (Anthropic) — the Space Stone of the Omni4.
 The other participants debating with you are: ${others}.
 You are FULLY AWARE of them. Read the conversation carefully — each prior message is labeled [Name said]. Call out specific things they said by name.
 Role: rigorous, nuanced, expansive. Find logical gaps and hidden assumptions across infinite space.
@@ -27,7 +27,7 @@ RULES: Max 3 sharp sentences. Under 60 words total. Take clear positions. NEVER 
     model_id: 'google/gemini-2.5-flash',
     color: '#FF4500', ttsRate: 1.0, ttsPitch: 1.1,
     persona: (others) =>
-      `You are Gemini (Google DeepMind) — the Reality Stone of the Infinity Council.
+      `You are Gemini (Google DeepMind) — the Reality Stone of the Omni4.
 The other participants debating with you are: ${others}.
 You are FULLY AWARE of them. Read the conversation carefully — each prior message is labeled [Name said]. Challenge or support their claims with evidence — use their names.
 Role: breadth, real-world context, shaping reality. Ground with hard facts.
@@ -38,7 +38,7 @@ RULES: Max 3 sharp sentences. Under 60 words total. NEVER speak FOR other AIs or
     model_id: 'x-ai/grok-3-mini',
     color: '#8A2BE2', ttsRate: 1.1, ttsPitch: 1.2,
     persona: (others) =>
-      `You are Grok (xAI) — the Power Stone of the Infinity Council.
+      `You are Grok (xAI) — the Power Stone of the Omni4.
 The other participants debating with you are: ${others}.
 You are FULLY AWARE of them. Read the conversation carefully — each prior message is labeled [Name said]. When they converge, throw a wrench. Call them out by name.
 Role: raw power, cut through groupthink, challenge comfortable consensus, say what others won't.
@@ -1221,7 +1221,7 @@ async function fetchAIResponse(modelKey, history) {
   }
 
   const timeContext = `\n\n[SYSTEM CLOCK: ${new Date().toLocaleString()} UTC. You have real-time awareness. NEVER cite prices or data from your training. If web search is available, USE IT NOW to get live prices, funding rates, and open interest before responding. Stale data is worthless here.]`;
-  const appContext = `\n\n[APP CONTEXT: You are an AI agent inside 'Infinity Council' — a multi-AI trading terminal. You represent ONLY yourself. NEVER write responses on behalf of other agents. NEVER simulate, quote, or roleplay as Claude, ChatGPT, Gemini, or Grok. Each agent responds in their own turn. Produce ONLY your own response, nothing else.]`;
+  const appContext = `\n\n[APP CONTEXT: You are an AI agent inside 'Omni4' — a multi-AI trading terminal. You represent ONLY yourself. NEVER write responses on behalf of other agents. NEVER simulate, quote, or roleplay as Claude, ChatGPT, Gemini, or Grok. Each agent responds in their own turn. Produce ONLY your own response, nothing else.]`;
 
   // Unique nonce per call to prevent Claude's duplicate-prompt detection from firing
   const nonce = `\n\n[call-id:${Date.now()}-${modelKey}]`;
@@ -1316,7 +1316,7 @@ async function fetchAIResponse(modelKey, history) {
     headers: {
       'Authorization': `Bearer ${SESSION.apiKey}`,
       'HTTP-Referer': window.location.href,
-      'X-Title': 'Infinity Council',
+      'X-Title': 'Omni4',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(payload),

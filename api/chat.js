@@ -90,7 +90,7 @@ const PROVIDER_CONFIG = {
     defaultModel: 'meta-llama/llama-4-maverick:free',
     extraHeaders: {
       'HTTP-Referer': 'https://infinity-council.vercel.app',
-      'X-Title': 'Infinity Council',
+      'X-Title': 'Omni4',
     },
   },
   ollama: {
