@@ -15,7 +15,7 @@
     --mind:    #FFD700;
     --space:   #00BFFF;
     --reality: #FF4500;
-    --power:   #9B30FF;
+    --power:   #00FF87;
 
     --green:   #22c55e;
     --red:     #ef4444;
@@ -54,14 +54,14 @@ body {
 .top-stat { display:flex; align-items:center; gap:0.4rem; font-size:0.72rem; }
 .top-stat-label { color:var(--text-2); text-transform:uppercase; font-size:0.6rem; letter-spacing:1px; }
 .oracle-tag {
-    background: rgba(155,48,255,0.18);
-    color: #c084fc;
+    background: rgba(0,255,135,0.18);
+    color: #6effc0;
     padding: 1px 8px;
     border-radius: 4px;
     font-size: 0.68rem;
     font-weight: 700;
     letter-spacing: 1px;
-    border: 1px solid rgba(155,48,255,0.3);
+    border: 1px solid rgba(0,255,135,0.3);
 }
 .status-secure { color: var(--green); font-size:0.72rem; font-weight:600; }
 .top-bar-right { display:flex; gap:0.4rem; margin-left:auto; }
@@ -233,9 +233,9 @@ body {
 }
 .oracle-btn:hover { background: rgba(255,255,255,0.04); color: var(--text); border-color: var(--border-glow); }
 .oracle-btn.active {
-    background: rgba(155,48,255,0.12);
+    background: rgba(0,255,135,0.10);
     color: #fff;
-    border-color: rgba(155,48,255,0.4);
+    border-color: rgba(0,255,135,0.4);
 }
 
 .oracle-btn-icon {
@@ -244,11 +244,11 @@ body {
     text-align: center;
     flex-shrink: 0;
 }
-.oracle-btn.active .oracle-btn-icon { color: #c084fc; }
+.oracle-btn.active .oracle-btn-icon { color: #6effc0; }
 .oracle-btn-text { display: flex; flex-direction: column; gap: 1px; }
 .oracle-btn-name { font-size: 0.8rem; font-weight: 600; }
 .oracle-btn-sub { font-size: 0.63rem; color: var(--text-2); }
-.oracle-btn.active .oracle-btn-sub { color: rgba(192,132,252,0.7); }
+.oracle-btn.active .oracle-btn-sub { color: rgba(110,255,192,0.7); }
 
 /* ─── CENTER / CHAT PANEL ────────────────────────────────── */
 .chat-panel {
@@ -435,7 +435,7 @@ body {
     padding: 0.5rem 0.6rem 0.5rem 1rem;
     transition: border-color 0.15s;
 }
-.input-box:focus-within { border-color: rgba(155,48,255,0.4); box-shadow: 0 0 0 2px rgba(155,48,255,0.1); }
+.input-box:focus-within { border-color: rgba(0,255,135,0.4); box-shadow: 0 0 0 2px rgba(0,255,135,0.08); }
 #message-input {
     flex: 1;
     background: transparent;
@@ -464,7 +464,7 @@ body {
     transition: all 0.15s;
     flex-shrink: 0;
 }
-.send-btn:hover:not(:disabled) { background: #7c22d4; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(155,48,255,0.4); }
+.send-btn:hover:not(:disabled) { background: #00c96b; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,255,135,0.4); }
 .send-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
 /* ─── RIGHT PANEL ────────────────────────────────────────── */
@@ -600,7 +600,7 @@ body {
     outline: none;
     transition: border-color 0.15s;
 }
-.modal-input:focus { border-color: rgba(155,48,255,0.5); }
+.modal-input:focus { border-color: rgba(0,255,135,0.5); }
 .modal-hint { font-size: 0.72rem; color: var(--text-2); }
 
 .modal-section-title { font-size:0.9rem; font-weight:700; color:var(--text); margin-top:0.25rem; }
@@ -645,7 +645,7 @@ body {
     transition: all 0.15s;
     margin-top: 0.25rem;
 }
-.modal-save:hover { background: #7c22d4; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(155,48,255,0.4); }
+.modal-save:hover { background: #00c96b; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,255,135,0.4); }
 
 /* ─── MOBILE BOTTOM TAB NAV ──────────────────────────────── */
 .mobile-tab-bar {
@@ -766,7 +766,7 @@ body {
         padding: 0;
     }
     .mobile-tab-btn i { font-size: 1.1rem; }
-    .mobile-tab-btn.active { color: #c084fc; }
+    .mobile-tab-btn.active { color: #6effc0; }
     .mobile-tab-btn.active i { color: var(--power); }
 
     /* Remove extra padding — panels handle their own bottom offset */
