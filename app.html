@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinity Council – AI Trading Terminal</title>
+    
+    <!-- Favicon and Social Meta -->
+    <link rel="icon" type="image/png" href="icx4ai_favicon.png">
+    <link rel="apple-touch-icon" href="icx4ai_favicon.png">
+    <meta property="og:title" content="Infinity Council – AI Trading Terminal">
+    <meta property="og:description" content="Four AI minds. One decision. No fluff. The terminal for $ICx4Ai.">
+    <meta property="og:image" content="icx4ai_logo_square.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="stylesheet" href="style.css?v=9.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <img src="icx4ai_logo_horizontal.jpg" alt="Infinity Council Logo" style="height:44px; width:auto; border-radius:12px; margin-right:12px; filter: drop-shadow(0 2px 6px rgba(155,48,255,0.4));">
+            <span class="top-bar-brand">INFINITY COUNCIL</span>
+        </div>
+        <div class="top-bar-center">
+            <span class="top-stat">
+                <span class="top-stat-label">LOCAL</span>
+                <span id="live-time">–</span>
+            </span>
+            <div class="top-bar-divider"></div>
+            <span class="top-stat">
+                <span class="top-stat-label">ORACLE</span>
+                <span id="top-oracle-mode" class="oracle-tag">PUMP.FUN</span>
+            </span>
+            <div class="top-bar-divider"></div>
+            <span class="top-stat">
+                <span class="top-stat-label">STATUS</span>
+                <span class="status-secure">● SECURE</span>
+            </span>
+        </div>
+        <div class="top-bar-right">
+            <button class="topbar-btn" onclick="window.location.href='index.html'" title="Home"><i class="fa-solid fa-house"></i></button>
+            <button class="topbar-btn" onclick="if(typeof openSettings==='function')openSettings();" title="Settings"><i class="fa-solid fa-gear"></i></button>
+            <button class="topbar-btn" id="settings-btn" title="Settings" style="display:none;"></button>
+            <button class="topbar-btn" onclick="if(typeof clearChat==='function')clearChat();" title="Clear Stream"><i class="fa-solid fa-trash-can"></i></button>
+            <button class="topbar-btn" id="clear-chat-btn" title="Clear" style="display:none;"></button>
+        </div>
+    </div>
+
+    <!-- 3-PANEL LAYOUT -->
+    <div class="dashboard-layout">
+
+        <!-- LEFT PANEL: Bots + Oracle Selector -->
+        <aside class="panel left-panel">
+            <div class="left-panel-inner">
+                <div class="lp-section">
+                    <div class="lp-label">ASSETS / BOTS</div>
+                    <div class="bots-list" id="bots-list"></div>
+                </div>
+                <div class="lp-section">
+                    <div class="lp-label">ORACLE MODE</div>
+                    <div class="oracle-deck" id="oracle-menu">
+                        <button class="oracle-btn active" data-mode="pump">
+                            <i class="fa-solid fa-pills oracle-btn-icon"></i>
+                            <div class="oracle-btn-text">
+                                <span class="oracle-btn-name">Pump.fun</span>
+                                <span class="oracle-btn-sub">Solana memecoin analysis</span>
+                            </div>
+                        </button>
+                        <button class="oracle-btn" data-mode="tradfi">
+                            <i class="fa-solid fa-chart-line oracle-btn-icon"></i>
+                            <div class="oracle-btn-text">
+                                <span class="oracle-btn-name">TradFi / Crypto</span>
+                                <span class="oracle-btn-sub">Traditional & crypto markets</span>
+                            </div>
+                        </button>
+                        <button class="oracle-btn" data-mode="perps">
+                            <i class="fa-solid fa-fire oracle-btn-icon"></i>
+                            <div class="oracle-btn-text">
+                                <span class="oracle-btn-name">Perps / Funding</span>
+                                <span class="oracle-btn-sub">Derivatives & open interest</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- CENTER PANEL: Chat Stream -->
+        <main class="panel chat-panel">
+            <div class="chat-header">
+                <div class="chat-header-left">
+                    <span class="ch-hash">#</span>
+                    <span class="ch-name" id="active-channel-label">PUMP-SIGNALS</span>
+                    <span class="ch-sub">w/ COUNCIL</span>
+                </div>
+                <div class="chat-header-right">
+                    <button class="hdr-btn" id="chart-toggle-btn" onclick="toggleInlineChart()" title="Toggle Chart">
+                        <i class="fa-solid fa-chart-candlestick"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- INLINE CHART PANE -->
+            <div class="inline-chart-pane" id="inline-chart-pane">
+                <div class="inline-chart-header">
+                    <span id="inline-chart-label">📊 BTC/USD — PUMP.FUN ACTIVE</span>
+                    <button class="inline-chart-close" onclick="toggleInlineChart()" title="Close Chart">✕</button>
+                </div>
+                <div class="inline-chart-embed" id="inline-chart-embed">
+                    <div class="empty-state" style="height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+                        <i class="fa-solid fa-satellite-dish"></i>
+                        <p>Select Oracle mode or submit a CA to load chart</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="transcript-container" id="transcript-container">
+                <div class="day-divider"><span>Today</span></div>
+                <div class="transcript-msg system">
+                    Awaiting Oracle signal — paste a CA or ticker to initiate the Council...
+                </div>
+            </div>
+
+            <div class="input-zone">
+                <div class="input-box">
+                    <textarea id="message-input" placeholder="Paste Solana CA here…" rows="1"></textarea>
+                    <button id="send-btn" class="send-btn" disabled>
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- RIGHT PANEL: Market Intelligence -->
+        <aside class="panel right-panel">
+            <div class="rp-header">MARKET INTELLIGENCE</div>
+
+            <div id="market-intel-pane" class="market-intel-pane">
+                <div class="empty-state">
+                    <i class="fa-solid fa-satellite-dish"></i>
+                    <p>No active asset</p>
+                    <p class="empty-sub">Submit a CA or ticker to load live data</p>
+                </div>
+            </div>
+
+            <div class="rp-section">
+                <div class="rp-label">Live Prices</div>
+                <table class="market-table">
+                    <thead><tr><th>Pair</th><th>Price</th><th>24h</th></tr></thead>
+                    <tbody>
+                        <tr><td><span class="pair-dot btc"></span>BTC</td><td class="price-val" id="btc-price">–</td><td class="up" id="btc-change">–</td></tr>
+                        <tr><td><span class="pair-dot sol"></span>SOL</td><td class="price-val" id="sol-price">–</td><td class="neutral" id="sol-change">–</td></tr>
+                        <tr><td><span class="pair-dot eth"></span>ETH</td><td class="price-val" id="eth-price">–</td><td class="dn" id="eth-change">–</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="rp-section">
+                <div class="rp-label">Council Status</div>
+                <div id="council-status-grid" class="council-grid"></div>
+            </div>
+
+            <div class="rp-footer">
+                <span class="online-dot"></span> SYSTEMS ONLINE
+            </div>
+        </aside>
+    </div>
+
+    <!-- Hidden stubs for script.js compatibility -->
+    <div style="display:none;">
+        <button id="random-topic-btn"></button>
+        <button id="pause-btn"></button>
+        <button id="stop-btn"></button>
+        <input type="checkbox" id="autopilot-toggle">
+        <input type="checkbox" id="layout-toggle">
+        <button id="oracle-btn"></button>
+        <button id="close-modal-btn"></button>
+        <div id="consensus-panel"><div id="consensus-text"></div></div>
+        <div id="roundtable-wrapper"></div>
+    </div>
+
+    <!-- ── WELCOME MODAL (shows on first launch) ── -->
+    <div id="welcome-modal" class="modal-overlay" style="z-index:9999; background:rgba(0,0,0,0.85); backdrop-filter:blur(12px);">
+        <div class="modal" style="max-width:520px; border:1px solid rgba(155,48,255,0.4); box-shadow:0 0 60px rgba(155,48,255,0.2); text-align:center; padding:0; overflow:hidden;">
+            <!-- Glow header bar -->
+            <div style="background:linear-gradient(135deg,#1a0030,#0d0d1a); padding:2.5rem 2rem 1.5rem; border-bottom:1px solid rgba(155,48,255,0.2);">
+                <div style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(155,48,255,0.15);border:1px solid rgba(155,48,255,0.35);padding:0.3rem 1rem;border-radius:99px;margin-bottom:1.2rem;">
+                    <div style="width:6px;height:6px;border-radius:50%;background:#9B30FF;box-shadow:0 0 6px #9B30FF;animation:ic-blink 2s infinite;"></div>
+                    <span style="font-size:0.7rem;font-weight:800;letter-spacing:3px;color:#c084fc;text-transform:uppercase;">Terminal v2 — Live</span>
+                </div>
+                <h2 style="font-size:2rem;font-weight:900;color:#fff;letter-spacing:-1px;margin:0 0 0.5rem;">Welcome to<br><span style="background:linear-gradient(90deg,#9B30FF,#e879f9);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">Infinity Council</span></h2>
+                <p style="color:rgba(255,255,255,0.5);font-size:0.9rem;margin:0;">Four AI minds. One decision. No fluff.</p>
+            </div>
+            <!-- Body -->
+            <div style="padding:1.8rem 2rem;">
+                <!-- Agents row -->
+                <div style="display:flex;gap:0.6rem;justify-content:center;margin-bottom:1.5rem;flex-wrap:wrap;">
+                    <span style="background:rgba(0,163,255,0.1);border:1px solid rgba(0,163,255,0.3);color:#60a5fa;font-size:0.75rem;font-weight:700;padding:0.3rem 0.85rem;border-radius:99px;">ChatGPT</span>
+                    <span style="background:rgba(0,191,255,0.1);border:1px solid rgba(0,191,255,0.3);color:#67e8f9;font-size:0.75rem;font-weight:700;padding:0.3rem 0.85rem;border-radius:99px;">Claude</span>
+                    <span style="background:rgba(255,69,0,0.1);border:1px solid rgba(255,69,0,0.3);color:#fb923c;font-size:0.75rem;font-weight:700;padding:0.3rem 0.85rem;border-radius:99px;">Gemini</span>
+                    <span style="background:rgba(155,48,255,0.1);border:1px solid rgba(155,48,255,0.3);color:#c084fc;font-size:0.75rem;font-weight:700;padding:0.3rem 0.85rem;border-radius:99px;">Grok</span>
+                </div>
+                <!-- Mode cards -->
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;margin-bottom:1.8rem;">
+                    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:0.9rem 0.5rem;">
+                        <div style="font-size:1.2rem;margin-bottom:0.3rem;">🪙</div>
+                        <div style="font-size:0.72rem;font-weight:800;color:#fff;letter-spacing:0.5px;">PUMP.FUN</div>
+                        <div style="font-size:0.68rem;color:rgba(255,255,255,0.4);margin-top:0.2rem;">Paste a Solana CA</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(155,48,255,0.2);border-radius:12px;padding:0.9rem 0.5rem;">
+                        <div style="font-size:1.2rem;margin-bottom:0.3rem;">⚡</div>
+                        <div style="font-size:0.72rem;font-weight:800;color:#fff;letter-spacing:0.5px;">PERPS</div>
+                        <div style="font-size:0.68rem;color:rgba(255,255,255,0.4);margin-top:0.2rem;">Live funding + OI</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:0.9rem 0.5rem;">
+                        <div style="font-size:1.2rem;margin-bottom:0.3rem;">📈</div>
+                        <div style="font-size:0.72rem;font-weight:800;color:#fff;letter-spacing:0.5px;">TRADFI</div>
+                        <div style="font-size:0.68rem;color:rgba(255,255,255,0.4);margin-top:0.2rem;">Stocks · Forex · Macro</div>
+                    </div>
+                </div>
+                <!-- Token pill -->
+                <div style="display:flex;align-items:center;justify-content:center;gap:0.5rem;margin-bottom:1.5rem;">
+                    <div style="width:6px;height:6px;border-radius:50%;background:#9B30FF;animation:ic-blink 2s infinite;box-shadow:0 0 6px #9B30FF;"></div>
+                    <span style="font-size:0.78rem;color:rgba(255,255,255,0.4);">Powered by</span>
+                    <span style="font-size:0.78rem;font-weight:800;color:#c084fc;letter-spacing:1px;">$ICx4Ai</span>
+                    <span style="font-size:0.78rem;color:rgba(255,255,255,0.4);">on Solana</span>
+                </div>
+                <button onclick="document.getElementById('welcome-modal').classList.add('hidden'); localStorage.setItem('ic_welcomed','1');"
+                    style="width:100%;background:linear-gradient(135deg,#7c22d4,#9B30FF);color:#fff;font-weight:800;font-size:1rem;padding:0.95rem;border:none;border-radius:12px;cursor:pointer;letter-spacing:0.5px;box-shadow:0 6px 24px rgba(155,48,255,0.4);transition:all 0.2s;"
+                    onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 10px 30px rgba(155,48,255,0.5)'"
+                    onmouseout="this.style.transform='';this.style.boxShadow='0 6px 24px rgba(155,48,255,0.4)'">
+                    ⚡ Enter the Council
+                </button>
+                <p style="margin-top:0.9rem;font-size:0.72rem;color:rgba(255,255,255,0.25);">Not financial advice. Trade responsibly.</p>
+            </div>
+        </div>
+    </div>
+    <style>
+        @keyframes ic-blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+    </style>
+    <script>
+        // Only show on first visit
+        if (localStorage.getItem('ic_welcomed')) {
+            document.getElementById('welcome-modal').classList.add('hidden');
+        }
+    </script>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal-overlay hidden">
+        <div class="modal">
+            <div class="modal-hdr">
+                <span class="modal-title">Configuration</span>
+                <button class="modal-close" onclick="document.getElementById('settings-modal').classList.add('hidden')">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-field-label">OPENROUTER API KEY</div>
+                <input type="password" id="api-key-input" class="modal-input" placeholder="sk-or-v1-…">
+                <p class="modal-hint">Key stored in memory only — never saved to disk.</p>
+
+                <div class="modal-section-title">Features <span class="modal-section-sub">— toggle on/off</span></div>
+                <div class="feature-list">
+                    <label class="feature-row">
+                        <input type="checkbox" id="flag-web-search" class="feature-cb" checked disabled title="Always Active for Infinity Council">
+                        <div class="feature-body">
+                            <span class="feature-name">Enable Real-Time Web Search</span>
+                            <span class="feature-desc">Allows AIs to pull live data from the web</span>
+                        </div>
+                    </label>
+                </div>
+
+                <button id="save-settings-btn" class="modal-save">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
+    <script src="script.js?v=8.0"></script>
+    <script>
+        // Live clock
+        (function tick() {
+            const el = document.getElementById('live-time');
+            if (el) {
+                const n = new Date();
+                el.textContent = n.getHours().toString().padStart(2,'0') + ':' + n.getMinutes().toString().padStart(2,'0');
+            }
+            setTimeout(tick, 30000);
+        })();
+
+        // Inline chart toggle
+        function toggleInlineChart() {
+            const pane = document.getElementById('inline-chart-pane');
+            const btn  = document.getElementById('chart-toggle-btn');
+            if (!pane) return;
+            const isOpen = pane.classList.toggle('open');
+            if (btn) btn.classList.toggle('chart-active', isOpen);
+        }
+
+        // Oracle deck — standalone handler, no dependency on script.js globals
+        (function wireOracle() {
+            const deck = document.getElementById('oracle-menu');
+            if (!deck) return;
+            const labels   = { pump:'PUMP.FUN', tradfi:'TRADFI', perps:'PERPS' };
+            const channels = { pump:'PUMP-SIGNALS', tradfi:'TRADFI-SIGNALS', perps:'PERPS-SIGNALS' };
+            const holders  = { pump:'Paste Solana CA here…', tradfi:'Enter ticker (e.g. BTCUSD)…', perps:'Enter perp ticker (e.g. ETH)…' };
+
+            deck.querySelectorAll('.oracle-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    // Toggle active class on buttons
+                    deck.querySelectorAll('.oracle-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const mode = btn.dataset.mode;
+
+                    // Update top-bar label
+                    const lbl = document.getElementById('top-oracle-mode');
+                    if (lbl) lbl.textContent = labels[mode] || mode.toUpperCase();
+
+                    // Update channel name
+                    const chan = document.getElementById('active-channel-label');
+                    if (chan) chan.textContent = channels[mode] || 'SIGNALS';
+
+                    // Update input placeholder
+                    const inp = document.getElementById('message-input');
+                    if (inp) inp.placeholder = holders[mode] || 'Send signal…';
+
+                    // Sync script.js state variable if loaded
+                    if (typeof currentOracleMode !== 'undefined') {
+                        currentOracleMode = mode;
+                        window.currentOracleMode = mode;
+                    }
+
+                    // Load default charts into Market Intel Pane
+                    const intelPane = document.getElementById('market-intel-pane');
+                    const inlineEmbed = document.getElementById('inline-chart-embed');
+                    const inlineLabel = document.getElementById('inline-chart-label');
+
+                    const tradfiIframe = `<iframe width="100%" height="100%" src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_1&symbol=BINANCE:BTCUSDT&interval=D&hidesidetoolbar=1&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=%5B%5D&theme=dark&style=1&timezone=Etc%2FUTC" frameborder="0"></iframe>`;
+                    const perpsIframe  = `<iframe width="100%" height="100%" src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_1&symbol=BINANCE:BTCUSDTPERP&interval=15&hidesidetoolbar=1&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=Volume%40tv-basicstudies&theme=dark&style=1&timezone=Etc%2FUTC" frameborder="0"></iframe>`;
+
+                    if (intelPane) {
+                        if (mode === 'tradfi') {
+                            intelPane.innerHTML = `<div style="padding: 1rem; font-size: 0.85rem; color: #a5b4fc;">✅ <strong>Default Chart:</strong> BTC/USD (TradFi / Crypto)</div><div style="margin-top: 5px; border-radius: 8px; overflow: hidden; width: 100%; height: 380px;">${tradfiIframe}</div>`;
+                        } else if (mode === 'perps') {
+                            intelPane.innerHTML = `<div style="padding: 1rem; font-size: 0.85rem; color: #a5b4fc;">✅ <strong>Default Derivatives:</strong> 15m Binance BTC Perpetuals</div><div style="margin-top: 5px; border-radius: 8px; overflow: hidden; width: 100%; height: 380px;">${perpsIframe}</div>`;
+                        } else if (mode === 'pump') {
+                            intelPane.innerHTML = `<div class="empty-state"><i class="fa-solid fa-satellite-dish"></i><p>Pump.fun Active</p><p class="empty-sub">Submit a CA to load live DexScreener chart</p></div>`;
+                        }
+                    }
+
+                    // Also update inline chart pane in the center chat panel
+                    if (inlineEmbed) {
+                        if (mode === 'tradfi') {
+                            if (inlineLabel) inlineLabel.textContent = '📊 BTC/USD — TradFi / Crypto';
+                            inlineEmbed.innerHTML = tradfiIframe;
+                        } else if (mode === 'perps') {
+                            if (inlineLabel) inlineLabel.textContent = '🔥 BTC Perpetuals — 15m';
+                            inlineEmbed.innerHTML = perpsIframe;
+                        } else if (mode === 'pump') {
+                            if (inlineLabel) inlineLabel.textContent = '💊 Pump.fun — Submit CA for chart';
+                            inlineEmbed.innerHTML = `<div class="empty-state" style="height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center;"><i class="fa-solid fa-satellite-dish"></i><p>Submit a CA to load live DexScreener chart</p></div>`;
+                        }
+                    }
+                });
+            });
+        })();
+    </script>
+
+    <!-- MOBILE TAB BAR (hidden on desktop via CSS) -->
+    <nav class="mobile-tab-bar" id="mobile-tab-bar">
+        <button class="mobile-tab-btn" id="mtab-bots" onclick="switchMobileTab('bots')">
+            <i class="fa-solid fa-robot"></i>
+            <span>Bots</span>
+        </button>
+        <button class="mobile-tab-btn active" id="mtab-chat" onclick="switchMobileTab('chat')">
+            <i class="fa-solid fa-comments"></i>
+            <span>Chat</span>
+        </button>
+        <button class="mobile-tab-btn" id="mtab-market" onclick="switchMobileTab('market')">
+            <i class="fa-solid fa-chart-bar"></i>
+            <span>Market</span>
+        </button>
+    </nav>
+
+    <script>
+        // Mobile Tab Switching
+        function switchMobileTab(tab) {
+            const panels = {
+                bots:   document.querySelector('.left-panel'),
+                chat:   document.querySelector('.chat-panel'),
+                market: document.querySelector('.right-panel')
+            };
+            const btns = {
+                bots:   document.getElementById('mtab-bots'),
+                chat:   document.getElementById('mtab-chat'),
+                market: document.getElementById('mtab-market')
+            };
+
+            // Hide all panels, deactivate all tabs
+            Object.values(panels).forEach(p => p && p.classList.remove('mobile-active'));
+            Object.values(btns).forEach(b => b && b.classList.remove('active'));
+
+            // Show selected panel and activate tab
+            if (panels[tab]) panels[tab].classList.add('mobile-active');
+            if (btns[tab]) btns[tab].classList.add('active');
+        }
+
+        // Init: set chat panel as default active on mobile
+        if (window.innerWidth <= 768) {
+            switchMobileTab('chat');
+        }
+
+        // Re-init on resize (handles orientation change)
+        window.addEventListener('resize', () => {
+            if (window.innerWidth <= 768) {
+                const anyActive = document.querySelector('.left-panel.mobile-active, .chat-panel.mobile-active, .right-panel.mobile-active');
+                if (!anyActive) switchMobileTab('chat');
+            } else {
+                // Desktop: remove all mobile-active so panels revert to normal CSS
+                document.querySelector('.left-panel')?.classList.remove('mobile-active');
+                document.querySelector('.chat-panel')?.classList.remove('mobile-active');
+                document.querySelector('.right-panel')?.classList.remove('mobile-active');
+            }
+        });
+
+        // ── Screen Wake Lock: keep screen on while terminal is open ──
+        let wakeLock = null;
+        async function requestWakeLock() {
+            if (!('wakeLock' in navigator)) return; // not supported
+            try {
+                wakeLock = await navigator.wakeLock.request('screen');
+            } catch (err) {
+                // Silently fail (e.g. battery saver mode)
+            }
+        }
+        // Acquire on load
+        requestWakeLock();
+        // Re-acquire when tab becomes visible again (wake lock releases on tab hide)
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') requestWakeLock();
+        });
+    </script>
+</body>
+</html>
