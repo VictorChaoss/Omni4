@@ -2,15 +2,15 @@
 
 /* ─── DESIGN TOKENS ─────────────────────────────────────── */
 :root {
-    --bg:            #0a130e;
-    --bg-dark:       #060f09;
-    --panel:         #0d1a11;
-    --panel-raised:  #122017;
-    --border:        rgba(0,255,135,0.07);
-    --border-glow:   rgba(0,255,135,0.14);
-    --text:          #d4f5e2;
-    --text-2:        #5a8a6e;
-    --text-3:        #2d5040;
+    --bg:            #0c0f0d;
+    --bg-dark:       #090c0a;
+    --panel:         #111412;
+    --panel-raised:  #161a17;
+    --border:        rgba(0,255,135,0.08);
+    --border-glow:   rgba(0,255,135,0.18);
+    --text:          #e8f5ee;
+    --text-2:        #607870;
+    --text-3:        #2d3830;
 
     --mind:    #FFD700;
     --space:   #00D4FF;
