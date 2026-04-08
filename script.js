@@ -907,18 +907,35 @@ async function sendMessage() {
 
         appendToTranscript('system', `✅ <strong>Live Binance Data Secured:</strong> ${ticker} @ $${liveData.price} | Funding: ${liveData.fundingRate} | OI: ${liveData.openInterest}`);
 
+        const perpRoles = {
+          chatgpt: `Your role: STRUCTURE & LEVELS. Study the price, 24h change and volume. Identify the most likely key level (support/resistance) where longs or shorts are over-leveraged. Give a precise entry or invalidation level. Are we trending or ranging?`,
+          claude:  `Your role: RISK & MACRO LENS. Analyse the funding rate and OI together — what does this combo tell you about risk? Is the market set up for a squeeze, a cascade, or sideways chop? What's the asymmetric trade here and what kills it?`,
+          gemini:  `Your role: DATA & CONTEXT. Compare the funding rate to historical norms. Is OI high or low relative to where price is? What macro or sector factor could act as the next catalyst — up or down? Bring in the bigger picture other agents might miss.`,
+          grok:    `Your role: CONTRARIAN SIGNAL. Find the trade everyone else is about to get wrong. Is the "obvious" move a trap? Is a squeeze being set up against consensus? Be specific — who is offside and why will they get rekt?`,
+        };
+
+        const agentRole = perpRoles[modelKey] || perpRoles.chatgpt;
+
         finalContent = `[ORACLE — LIVE BINANCE PERPS DATA as of ${new Date().toLocaleTimeString()}]\n` +
           `Asset: ${liveData.symbol} Perpetual Futures\n` +
           `Price: $${liveData.price} | 24h Change: ${liveData.change24h}% | Volume: $${liveData.volume24h}\n` +
           `Funding Rate: ${liveData.fundingRate} → ${fundingSignal}\n` +
           `Open Interest: ${liveData.openInterest}\n` +
-          `\n[YOUR ROLE]: You are a high-leverage degen who lives and breathes derivatives. All numbers above are LIVE — don't search for data, it's already here. Reason about: is the funding rate signalling crowded positioning? Is OI rising (conviction) or falling (washout)? Where are the likely stop-hunt zones based on price levels?\n` +
-          `RESPONSE FORMAT: 3-4 sentences, 80-100 words MAX. Aggressive, sharp. State longs or shorts getting REKT. Name a specific price level. DO NOT summarize other agents.`;
+          `\n${agentRole}\n` +
+          `RULES: Max 3-4 sharp sentences. Under 90 words. State a specific price level or % figure. NEVER repeat what another agent said — react to it or counter it.`;
       } else {
         // If Binance has no market for this (e.g., not a perps coin), fall back gracefully
         appendToTranscript('system', `⚠️ No Binance perps market found for ${ticker}. Proceeding with AI analysis.`);
-        finalContent = `[ORACLE — PERPETUAL FUTURES ANALYSIS]\nAsset: ${ticker}\nNote: No live Binance market data available for this ticker. Use your training knowledge of this asset's perps market.\n` +
-          `RESPONSE FORMAT: 3-4 sentences, 80-100 words MAX. Aggressive, sharp trader voice. DO NOT summarize other agents.`;
+        const fallbackRoles = {
+          chatgpt: `Your role: STRUCTURE & LEVELS. From your knowledge of ${ticker}'s perps market, identify key price levels where positioning is likely crowded. What's the most probable near-term move?`,
+          claude:  `Your role: RISK & VIABILITY. Is ${ticker} even liquid enough for perps trading? What are the real risks — low OI, wide spreads, manipulation? What does the broader macro say right now?`,
+          gemini:  `Your role: DATA & HISTORY. Recall how ${ticker} has historically behaved in perps. Has it had notable short squeezes or long cascades? What does its typical funding rate pattern look like?`,
+          grok:    `Your role: CONTRARIAN. Is ${ticker} on perps even a good idea right now, or is this a trap? What's the trade everyone thinks is obvious that will get them wrecked?`,
+        };
+        const fallbackRole = fallbackRoles[modelKey] || fallbackRoles.chatgpt;
+        finalContent = `[ORACLE — PERPETUAL FUTURES ANALYSIS]\nAsset: ${ticker}\nNote: No live Binance market data available. Use your training knowledge of this asset's perps market.\n` +
+          `\n${fallbackRole}\n` +
+          `RULES: Max 3-4 sharp sentences. Under 90 words. Be specific — name a price level or ratio. NEVER repeat what another agent said.`;
       }
 
       const perpIframe = `<div style="margin-top: 15px; border-radius: 8px; overflow: hidden; width: 100%; height: 380px;">
