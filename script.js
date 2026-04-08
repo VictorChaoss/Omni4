@@ -1351,23 +1351,16 @@ function getMockResponse(modelKey, history) {
    CONSENSUS  — transcript-only (no floating popup)
    ════════════════════════════════════════════════════════════════ */
 async function synthesizeConsensus(responses) {
-  /* Always hide the floating panel — consensus goes to transcript only */
-  const panel = document.getElementById('consensus-panel');
-  if (panel) panel.classList.remove('visible');
-
   if (!FLAGS.consensusPanel) return;
 
   const transcript = responses.map(r => `${r.name}: ${r.text}`).join('\n\n');
   try {
-    const isHosted = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1' && window.location.protocol.startsWith('http');
-
     const msgs = [
       { role: 'system', content: `You are a neutral synthesis engine. Produce a CONSENSUS SUMMARY:\n**Agreed:** [what the group converged on]\n**Tension:** [the core disagreement]\n**Synthesis:** [2-sentence integrated conclusion]\nUnder 120 words total. Be precise.` },
       { role: 'user', content: `Debate transcript:\n\n${transcript}` },
     ];
 
-    let resp;
-    resp = await fetch('/api/chat', {
+    const resp = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ provider: 'openrouter', model: 'openai/gpt-4o-mini', max_tokens: 250, messages: msgs }),
@@ -1376,7 +1369,17 @@ async function synthesizeConsensus(responses) {
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
     const data = await resp.json();
     const summary = data.choices?.[0]?.message?.content || '';
+    if (!summary) return;
 
+    // Show in the floating consensus card
+    const card = document.getElementById('consensus-card');
+    const cardBody = document.getElementById('consensus-card-body');
+    if (card && cardBody) {
+      try { cardBody.innerHTML = marked.parse(summary); } catch(e) { cardBody.textContent = summary; }
+      card.classList.add('visible');
+    }
+
+    // Also append to transcript stream
     appendToTranscript('consensus', summary);
 
   } catch (e) {
@@ -1479,6 +1482,12 @@ async function runResearchRound(topic) {
 
 function hideConsensus() {
   document.getElementById('consensus-panel')?.classList.remove('visible');
+  const card = document.getElementById('consensus-card');
+  if (card) {
+    card.classList.remove('visible');
+    const body = document.getElementById('consensus-card-body');
+    if (body) body.innerHTML = '—';
+  }
 }
 
 /* ════════════════════════════════════════════════════════════════
