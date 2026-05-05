@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Omni4 Trailer</title>
+    <title>Cinematic Teaser</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -52,7 +52,7 @@
 
         /* Scene 1: Pitch Black Text */
         .s1-text {
-            font-size: 6vw; font-weight: 900; letter-spacing: -2px;
+            font-size: 5vw; font-weight: 900; letter-spacing: -1px;
             opacity: 0; position: absolute;
             text-align: center;
         }
@@ -88,6 +88,7 @@
         .s3-title {
             font-size: 4vw; font-weight: 900; letter-spacing: -1px; opacity: 0;
             text-shadow: 0 0 30px rgba(155,48,255,0.5);
+            text-align: center;
         }
         .modes-container {
             display: flex; gap: 3rem; perspective: 1000px;
@@ -107,13 +108,12 @@
 
         /* Scene 4: Climax */
         .s4-logo {
-            width: 250px; opacity: 0; transform: scale(0.8);
+            width: 300px; opacity: 0; transform: scale(0.8);
             filter: drop-shadow(0 0 50px rgba(155,48,255,0.6));
-            mix-blend-mode: screen; /* instantly removes the dark square background */
             margin-bottom: 2rem;
         }
         .s4-title {
-            font-size: 5vw; font-weight: 900; letter-spacing: 8px;
+            font-size: 4vw; font-weight: 900; letter-spacing: 6px;
             text-transform: uppercase; opacity: 0;
             background: linear-gradient(90deg, #fff, rgba(255,255,255,0.4));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
@@ -135,14 +135,14 @@
     <!-- START OVERLAY -->
     <div id="start-overlay">
         <h2 style="margin-bottom: 2rem; color: rgba(255,255,255,0.5); font-weight: 400;">Ensure your screen recorder is ready.</h2>
-        <button id="start-btn">Start Trailer</button>
+        <button id="start-btn">Start Teaser</button>
     </div>
 
     <!-- SCENE 1: Typography -->
     <div class="scene" id="scene1">
-        <div class="s1-text" id="t1">Four Minds.</div>
-        <div class="s1-text" id="t2">One Decision.</div>
-        <div class="s1-text" id="t3">Absolute Consensus.</div>
+        <div class="s1-text" id="t1">Four distinct superintelligences...</div>
+        <div class="s1-text" id="t2">Analyzing live market data...</div>
+        <div class="s1-text" id="t3">Debating every contract...</div>
     </div>
 
     <!-- SCENE 2: The Stones -->
@@ -174,22 +174,22 @@
     <!-- SCENE 3: The 3 Modes -->
     <div class="scene" id="scene3">
         <div class="s3-wrapper">
-            <div class="s3-title">Three Modes of Analysis</div>
+            <div class="s3-title">The Path to Consensus</div>
             <div class="modes-container">
                 <div class="mode-card">
                     <div class="mode-icon">⚡</div>
-                    <h3>Bot Config</h3>
-                    <p>Customize the personalities, risk tolerance, and intelligence tier of each AI.</p>
+                    <h3>Configuration</h3>
+                    <p>Customize their personalities and define risk tolerance.</p>
                 </div>
                 <div class="mode-card">
                     <div class="mode-icon">💬</div>
                     <h3>The Debate</h3>
-                    <p>Submit any token or contract address and watch the four superintelligences argue live.</p>
+                    <p>Watch them argue live over any submitted contract or token.</p>
                 </div>
                 <div class="mode-card">
                     <div class="mode-icon">📊</div>
-                    <h3>Market Intel</h3>
-                    <p>Live, integrated charts dynamically updating inside the council's mind.</p>
+                    <h3>Resolution</h3>
+                    <p>Wait for them to reach absolute consensus.</p>
                 </div>
             </div>
         </div>
@@ -197,8 +197,8 @@
 
     <!-- SCENE 4: Climax -->
     <div class="scene" id="scene4">
-        <img src="icx4ai_logo_horizontal.jpg" class="s4-logo" style="border-radius:12px; filter: drop-shadow(0 0 20px rgba(155,48,255,0.6));">
-        <div class="s4-title" data-text="OMNI4">OMNI4</div>
+        <img src="infinity_logo_v1.png" class="s4-logo">
+        <div class="s4-title" data-text="THE ULTIMATE AI CONSENSUS PROTOCOL">THE ULTIMATE AI<br>CONSENSUS PROTOCOL</div>
     </div>
 
     <!-- GreenSock Animation Library -->
@@ -227,15 +227,15 @@
             gsap.set('#scene1', { opacity: 1 });
             tl.to('.s1-text', { duration: 0, display: 'none' }) // reset
               .set('#t1', { display: 'block' })
-              .to('#t1', { opacity: 1, scale: 1.1, duration: 2, ease: 'power2.out' })
+              .to('#t1', { opacity: 1, scale: 1.1, duration: 2.5, ease: 'power2.out' })
               .to('#t1', { opacity: 0, scale: 1.2, duration: 1, ease: 'power2.in' })
               
               .set('#t2', { display: 'block' })
-              .to('#t2', { opacity: 1, scale: 1.1, duration: 2, ease: 'power2.out' })
+              .to('#t2', { opacity: 1, scale: 1.1, duration: 2.5, ease: 'power2.out' })
               .to('#t2', { opacity: 0, scale: 1.2, duration: 1, ease: 'power2.in' })
               
               .set('#t3', { display: 'block' })
-              .to('#t3', { opacity: 1, scale: 1.05, duration: 2, ease: 'power2.out' })
+              .to('#t3', { opacity: 1, scale: 1.05, duration: 2.5, ease: 'power2.out' })
               .to('#t3', { opacity: 0, scale: 1.1, duration: 1, ease: 'power2.in' })
               .set('#scene1', { opacity: 0 });
 
@@ -247,8 +247,8 @@
                   duration: 1.5, stagger: 0.6, 
                   ease: 'elastic.out(1, 0.7)' 
                })
-              // Hold for 3 seconds to let user read
-              .to({}, { duration: 3 })
+              // Hold for 3.5 seconds to let user read
+              .to({}, { duration: 3.5 })
               // Fade out
               .to('.s2-grid', { opacity: 0, y: -50, duration: 1, ease: 'power2.in' })
               .set('#scene2', { opacity: 0 });
@@ -262,7 +262,7 @@
                   ease: 'back.out(1.2)'
               }, "-=0.5")
               // Hold
-              .to({}, { duration: 3.5 })
+              .to({}, { duration: 4 })
               // Fade out
               .to('#scene3', { opacity: 0, scale: 0.9, duration: 1.5, ease: 'power2.inOut' })
               .set('#scene3', { opacity: 0 });
