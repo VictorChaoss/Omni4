@@ -33,7 +33,7 @@
             <div class="top-bar-divider"></div>
             <span class="top-stat">
                 <span class="top-stat-label">ORACLE</span>
-                <span id="top-oracle-mode" class="oracle-tag">PUMP.FUN</span>
+                <span id="top-oracle-mode" class="oracle-tag">PONSFAMILY</span>
             </span>
             <div class="top-bar-divider"></div>
             <span class="top-stat">
@@ -66,8 +66,8 @@
                         <button class="oracle-btn active" data-mode="pump">
                             <i class="fa-solid fa-pills oracle-btn-icon"></i>
                             <div class="oracle-btn-text">
-                                <span class="oracle-btn-name">Pump.fun</span>
-                                <span class="oracle-btn-sub">Solana memecoin analysis</span>
+                                <span class="oracle-btn-name">PonsFamily Launchpad</span>
+                                <span class="oracle-btn-sub">Robinhood Chain memecoin analysis</span>
                             </div>
                         </button>
                         <button class="oracle-btn" data-mode="tradfi">
@@ -94,7 +94,7 @@
             <div class="chat-header">
                 <div class="chat-header-left">
                     <span class="ch-hash">#</span>
-                    <span class="ch-name" id="active-channel-label">PUMP-SIGNALS</span>
+                    <span class="ch-name" id="active-channel-label">PONSFAMILY-SIGNALS</span>
                     <span class="ch-sub">w/ COUNCIL</span>
                 </div>
                 <div class="chat-header-right">
@@ -107,7 +107,7 @@
             <!-- INLINE CHART PANE -->
             <div class="inline-chart-pane" id="inline-chart-pane">
                 <div class="inline-chart-header">
-                    <span id="inline-chart-label">📊 BTC/USD — PUMP.FUN ACTIVE</span>
+                    <span id="inline-chart-label">📊 BTC/USD — PONSFAMILY ACTIVE</span>
                     <button class="inline-chart-close" onclick="toggleInlineChart()" title="Close Chart">✕</button>
                 </div>
                 <div class="inline-chart-embed" id="inline-chart-embed">
@@ -134,7 +134,7 @@
 
             <div class="input-zone">
                 <div class="input-box">
-                    <textarea id="message-input" placeholder="Paste Solana CA here…" rows="1"></textarea>
+                    <textarea id="message-input" placeholder="Paste Robinhood Chain CA here…" rows="1"></textarea>
                     <button id="send-btn" class="send-btn" disabled>
                         <i class="fa-solid fa-paper-plane"></i>
                     </button>
@@ -215,8 +215,8 @@
                 <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;margin-bottom:1.8rem;">
                     <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:0.9rem 0.5rem;">
                         <div style="font-size:1.2rem;margin-bottom:0.3rem;">🪙</div>
-                        <div style="font-size:0.72rem;font-weight:800;color:#fff;letter-spacing:0.5px;">PUMP.FUN</div>
-                        <div style="font-size:0.68rem;color:rgba(255,255,255,0.4);margin-top:0.2rem;">Paste a Solana CA</div>
+                        <div style="font-size:0.72rem;font-weight:800;color:#fff;letter-spacing:0.5px;">PONSFAMILY</div>
+                        <div style="font-size:0.68rem;color:rgba(255,255,255,0.4);margin-top:0.2rem;">Paste a Robinhood Chain CA</div>
                     </div>
                     <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(0,255,135,0.15);border-radius:12px;padding:0.9rem 0.5rem;">
                         <div style="font-size:1.2rem;margin-bottom:0.3rem;">⚡</div>
@@ -234,7 +234,7 @@
                     <div style="width:6px;height:6px;border-radius:50%;background:#00FF87;animation:ic-blink 2s infinite;box-shadow:0 0 6px #00FF87;"></div>
                     <span style="font-size:0.78rem;color:rgba(255,255,255,0.4);">Powered by</span>
                     <span style="font-size:0.78rem;font-weight:800;color:#6effc0;letter-spacing:1px;">OMNI4</span>
-                    <span style="font-size:0.78rem;color:rgba(255,255,255,0.4);">on Solana</span>
+                    <span style="font-size:0.78rem;color:rgba(255,255,255,0.4);">on Robinhood Chain</span>
                 </div>
                 <button onclick="document.getElementById('welcome-modal').classList.add('hidden'); localStorage.setItem('ic_welcomed','1');"
                     style="width:100%;background:linear-gradient(135deg,#00c96b,#00FF87);color:#0a1a0f;font-weight:800;font-size:1rem;padding:0.95rem;border:none;border-radius:12px;cursor:pointer;letter-spacing:0.5px;box-shadow:0 6px 24px rgba(0,255,135,0.35);transition:all 0.2s;"
@@ -312,9 +312,9 @@
         (function wireOracle() {
             const deck = document.getElementById('oracle-menu');
             if (!deck) return;
-            const labels   = { pump:'PUMP.FUN', tradfi:'TRADFI', perps:'PERPS' };
-            const channels = { pump:'PUMP-SIGNALS', tradfi:'TRADFI-SIGNALS', perps:'PERPS-SIGNALS' };
-            const holders  = { pump:'Paste Solana CA here…', tradfi:'Enter ticker (e.g. BTCUSD)…', perps:'Enter perp ticker (e.g. ETH)…' };
+            const labels   = { pump:'PONSFAMILY', tradfi:'TRADFI', perps:'PERPS' };
+            const channels = { pump:'PONSFAMILY-SIGNALS', tradfi:'TRADFI-SIGNALS', perps:'PERPS-SIGNALS' };
+            const holders  = { pump:'Paste Robinhood Chain CA here…', tradfi:'Enter ticker (e.g. BTCUSD)…', perps:'Enter perp ticker (e.g. ETH)…' };
 
             deck.querySelectorAll('.oracle-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
@@ -359,7 +359,7 @@
                         } else if (mode === 'perps') {
                             intelPane.innerHTML = `<div style="padding: 1rem; font-size: 0.85rem; color: #a5b4fc;">✅ <strong>Default Derivatives:</strong> 15m Binance BTC Perpetuals</div><div style="margin-top: 5px; border-radius: 8px; overflow: hidden; width: 100%; height: 380px;">${perpsIframe}</div>`;
                         } else if (mode === 'pump') {
-                            intelPane.innerHTML = `<div class="empty-state"><i class="fa-solid fa-satellite-dish"></i><p>Pump.fun Active</p><p class="empty-sub">Submit a CA to load live DexScreener chart</p></div>`;
+                            intelPane.innerHTML = `<div class="empty-state"><i class="fa-solid fa-satellite-dish"></i><p>PonsFamily Launchpad Active</p><p class="empty-sub">Submit a CA to load live DexScreener chart</p></div>`;
                         }
                     }
 
@@ -372,7 +372,7 @@
                             if (inlineLabel) inlineLabel.textContent = '🔥 BTC Perpetuals — 15m';
                             inlineEmbed.innerHTML = perpsIframe;
                         } else if (mode === 'pump') {
-                            if (inlineLabel) inlineLabel.textContent = '💊 Pump.fun — Submit CA for chart';
+                            if (inlineLabel) inlineLabel.textContent = '💊 PonsFamily Launchpad — Submit CA for chart';
                             inlineEmbed.innerHTML = `<div class="empty-state" style="height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center;"><i class="fa-solid fa-satellite-dish"></i><p>Submit a CA to load live DexScreener chart</p></div>`;
                         }
                     }
