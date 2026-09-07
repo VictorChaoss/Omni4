@@ -425,10 +425,10 @@ body {
     margin-bottom: 0.3rem;
 }
 .msg-sender { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.5px; color: var(--text-2); }
-.transcript-msg.chatgpt .msg-sender { color: var(--mind); }
-.transcript-msg.claude .msg-sender  { color: var(--space); }
-.transcript-msg.gemini .msg-sender  { color: var(--reality); }
-.transcript-msg.grok .msg-sender    { color: var(--power); }
+.transcript-msg.chatgpt .msg-sender { color: #FFFFFF; }
+.transcript-msg.claude .msg-sender  { color: #A78BFA; }
+.transcript-msg.gemini .msg-sender  { color: #60A5FA; }
+.transcript-msg.grok .msg-sender    { color: #CCFF00; }
 .msg-time { font-size: 0.65rem; color: var(--text-3); margin-left: auto; }
 .resp-time { color: var(--text-3); margin-left: 4px; font-size: 0.62rem; }
 
