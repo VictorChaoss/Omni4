@@ -89,8 +89,8 @@ const PROVIDER_CONFIG = {
     keyEnv: 'OPENROUTER_API_KEY',
     defaultModel: 'meta-llama/llama-4-maverick:free',
     extraHeaders: {
-      'HTTP-Referer': 'https://infinity-council.vercel.app',
-      'X-Title': 'Omni4',
+      'HTTP-Referer': 'https://www.robinscan.online',
+      'X-Title': 'RobinScan',
     },
   },
   ollama: {
@@ -152,13 +152,16 @@ const PROVIDER_CONFIG = {
 
 // ─── ALLOWED ORIGINS (CORS) ────────────────────────────────────
 const ALLOWED_ORIGINS = [
+  'https://www.robinscan.online',
+  'https://robinscan.online',
   'https://infinity-council.vercel.app',
   'http://localhost',
   'http://127.0.0.1',
 ];
 
 function getCorsHeaders(origin) {
-  const allowed = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  const isAllowed = ALLOWED_ORIGINS.includes(origin) || !origin;
+  const allowed = isAllowed ? (origin || '*') : ALLOWED_ORIGINS[0];
   return {
     'Access-Control-Allow-Origin': allowed,
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
@@ -273,12 +276,15 @@ export default async function handler(req, res) {
     ...(cfg.extraHeaders || {}),
   };
 
-  
-  // Bypass OpenRouter duplicate prompt detection by appending a unique invisible seed
-  if (safeMessages.length > 0 && safeMessages[0].role === "system") {
-      safeMessages[0].content += " \n[Seed: " + Math.random().toString(36).substring(7) + "]";
-  } else if (safeMessages.length > 0) {
-      safeMessages[safeMessages.length - 1].content += " \n[Seed: " + Math.random().toString(36).substring(7) + "]";
+  // Bypass OpenRouter duplicate prompt detection — unique seed per request
+  const uniqueSeed = Date.now().toString(36) + Math.random().toString(36).substring(2, 8);
+  const lastIdx = safeMessages.length - 1;
+  if (lastIdx >= 0) {
+    const last = safeMessages[lastIdx];
+    safeMessages[lastIdx] = {
+      ...last,
+      content: (typeof last.content === 'string' ? last.content : JSON.stringify(last.content)) + ' \u200B' + uniqueSeed
+    };
   }
 
   const upstreamBody = {
