@@ -440,19 +440,8 @@ function detectAbuse(ip, messages) {
     return { abuse: true, reason: 'Too many messages' };
   }
 
-  // Detect identical repeated prompts (bot pattern)
-  const hash = simpleHash(promptStr);
-  const lastHash = recentPrompts.get(ip);
-  if (lastHash === hash) {
-    return { abuse: true, reason: 'Duplicate prompt detected' };
-  }
-  recentPrompts.set(ip, hash);
-
-  // Clean up map periodically
-  if (recentPrompts.size > 1000) {
-    const keys = [...recentPrompts.keys()];
-    keys.slice(0, 500).forEach(k => recentPrompts.delete(k));
-  }
+  // NOTE: Duplicate hash check removed — it incorrectly flags legitimate
+  // multi-model roundtable calls where all 4 AIs share the same chat history.
 
   return { abuse: false };
 }
