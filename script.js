@@ -787,7 +787,7 @@ async function sendMessage() {
 
   // Mode 1: Pump.fun / Solana CA
   if (currentOracleMode === 'pump') {
-    const solanaCaRegex = /[1-9A-HJ-NP-Za-km-z]{32,44}/;
+    const solanaCaRegex = /(0x[a-fA-F0-9]{40}|[1-9A-HJ-NP-Za-km-z]{32,44})/i;
     const caMatch = content.match(solanaCaRegex);
     const extractedCa = caMatch ? caMatch[0] : null;
 
@@ -797,14 +797,14 @@ async function sendMessage() {
       // Fetch both APIs in parallel
       const [tokenData, loreData] = await Promise.all([
         fetchTokenData(extractedCa),
-        fetchPumpFunLore(extractedCa)
+        fetchPonsFamilyLore(extractedCa)
       ]);
 
       if (tokenData) {
         // Build the lore section if available
         let loreSection = '';
         if (loreData) {
-          loreSection = `\n[COIN LORE FROM PUMP.FUN]:\n`;
+          loreSection = `\n[COIN LORE FROM PONSFAMILY]:\n`;
           if (loreData.description) loreSection += `- Creator's Description: "${loreData.description}"\n`;
           if (loreData.twitter) loreSection += `- Twitter: ${loreData.twitter}\n`;
           if (loreData.telegram) loreSection += `- Telegram: ${loreData.telegram}\n`;
@@ -812,21 +812,21 @@ async function sendMessage() {
           if (loreData.createdTimestamp) loreSection += `- Launch Date: ${loreData.createdTimestamp}\n`;
           if (loreData.isCompleted) loreSection += `- Status: 🎓 Graduated to Raydium (liquidity locked)\n`;
           else loreSection += `- Status: Still on bonding curve (has NOT graduated yet)\n`;
-          if (loreData.marketCapSol) loreSection += `- Pump.fun Market Cap: ${loreData.marketCapSol}\n`;
+          if (loreData.marketCapSol) loreSection += `- PonsFamily Market Cap: ${loreData.marketCapSol}\n`;
         }
 
-        finalContent = `[ORACLE — PUMP.FUN MEMECOIN]\n` +
+        finalContent = `[ORACLE — PONSFAMILY MEMECOIN]\n` +
           `$${tokenData.symbol} (${tokenData.name || '?'}) | Price: $${tokenData.price} | MC: $${tokenData.marketCap} | Vol24h: $${tokenData.volume24h} | Liq: $${tokenData.liquidity}\n` +
           loreSection +
           `\n[DEGEN FRAMEWORK]: MC<$10k=inner curve (90% die); $10k-$100k=forming; $100k-$1M=survived, possible runner; $1M-$10M=dev sold, community play; $10M+=likely topped.\n` +
           `Liq<$5k=one sell nukes it; $5k-$30k=thin; $30k+=solid. Raydium=pool locked, no rug.\n` +
           `Vol>MC=huge interest (organic if trending up, bots if flat/down). Vol<10% MC=dead. Vol up + price flat=smart money selling into buys.\n` +
-          `Rug flags: $500k MC in <5min=sniped; no Twitter/TG=anon; polished roadmap on pump.fun=red flag; generic name (INU/MOON)=weak narrative.\n` +
+          `Rug flags: $500k MC in <5min=sniped; no Twitter/TG=anon; polished roadmap on ponsfamily=red flag; generic name (INU/MOON)=weak narrative.\n` +
           `Bonding curve tops at ~$69k MC. Buying $50k-$69k range=danger, migration dump likely. Post-Raydium dip=possible bounce.\n` +
-          `\n[YOUR ROLE]: Solana degen. Give COLD verdict on this token using the numbers + lore. End with BUY / AVOID / WATCH + one-line reason. 80 words MAX. No disclaimers. Don't summarize others — challenge or build on their point.`;
+          `\n[YOUR ROLE]: Robinhood Chain degen. Give COLD verdict on this token using the numbers + lore. End with BUY / AVOID / WATCH + one-line reason. 80 words MAX. No disclaimers. Don't summarize others — challenge or build on their point.`;
 
         const chartIframe = `<div style="margin-top: 15px; border-radius: 8px; overflow: hidden; width: 100%; height: 350px;">
-          <iframe width="100%" height="100%" src="https://dexscreener.com/solana/${extractedCa}?embed=1&theme=dark&trades=0&info=0" frameborder="0"></iframe>
+          <iframe width="100%" height="100%" src="https://dexscreener.com/${tokenData.chainId}/${extractedCa}?embed=1&theme=dark&trades=0&info=0" frameborder="0"></iframe>
         </div>`;
 
         let statusMsg = `✅ <strong>Oracle Loaded:</strong> $${tokenData.symbol} | MC: $${tokenData.marketCap} | Liq: $${tokenData.liquidity}`;
@@ -839,7 +839,7 @@ async function sendMessage() {
         const intelPane = document.getElementById('market-intel-pane');
         if (intelPane) {
             intelPane.innerHTML = `<div style="padding: 1rem; font-size: 0.85rem; color: #a5b4fc;">${statusMsg}</div>` + chartIframe;
-            appendToTranscript('system', `Pump.fun Oracle data routed to Market Intelligence panel.`);
+            appendToTranscript('system', `PonsFamily Oracle data routed to Market Intelligence panel.`);
         } else {
             statusMsg += chartIframe;
             appendToTranscript('system', statusMsg);
@@ -2149,6 +2149,7 @@ async function fetchTokenData(address) {
     if (!mainPair || !mainPair.baseToken) return null;
 
     return {
+      chainId: mainPair.chainId,
       symbol: mainPair.baseToken.symbol,
       name: mainPair.baseToken.name,
       price: parseFloat(mainPair.priceUsd).toFixed(6),
@@ -2162,8 +2163,8 @@ async function fetchTokenData(address) {
   }
 }
 
-/* Pump.fun Lore API — fetches the coin's backstory, description, and social links */
-async function fetchPumpFunLore(address) {
+/* PonsFamily Lore API — fetches the coin's backstory, description, and social links */
+async function fetchPonsFamilyLore(address) {
   try {
     const res = await fetch(`https://frontend-api.pump.fun/coins/${address}`);
     if (!res.ok) return null;
