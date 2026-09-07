@@ -35,7 +35,7 @@ RULES: Max 3 sharp sentences. Under 60 words total. NEVER speak FOR other AIs or
   },
   grok: {
     id: 'grok', name: 'Grok',
-    model_id: 'x-ai/grok-3-mini-beta',
+    model_id: 'x-ai/grok-2-1212',
     color: '#CCFF00', ttsRate: 1.1, ttsPitch: 1.2,
     persona: (others) =>
       `You are Grok (xAI) — the Signal Node of RobinScan.
