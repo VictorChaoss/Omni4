@@ -24,7 +24,7 @@ RULES: Max 3 sharp sentences. Under 60 words total. Take clear positions. NEVER 
   },
   gemini: {
     id: 'gemini', name: 'Gemini',
-    model_id: 'google/gemini-2.5-flash-preview-09-2025',
+    model_id: 'google/gemini-2.5-flash',
     color: '#525252', ttsRate: 1.0, ttsPitch: 1.1,
     persona: (others) =>
       `You are Gemini (Google DeepMind) — the Data Node of RobinScan.
@@ -35,7 +35,7 @@ RULES: Max 3 sharp sentences. Under 60 words total. NEVER speak FOR other AIs or
   },
   grok: {
     id: 'grok', name: 'Grok',
-    model_id: 'x-ai/grok-4.6',
+    model_id: 'x-ai/grok-3-mini-beta',
     color: '#CCFF00', ttsRate: 1.1, ttsPitch: 1.2,
     persona: (others) =>
       `You are Grok (xAI) — the Signal Node of RobinScan.
@@ -1228,14 +1228,17 @@ async function fetchAIResponse(modelKey, history) {
   }
 
   const timeContext = `\n\n[SYSTEM CLOCK: ${new Date().toLocaleString()} UTC. You have real-time awareness. NEVER cite prices or data from your training. If web search is available, USE IT NOW to get live prices, funding rates, and open interest before responding. Stale data is worthless here.]`;
-  const appContext = `\n\n[APP CONTEXT: You are an AI agent inside 'Omni4' — a multi-AI trading terminal. You represent ONLY yourself. NEVER write responses on behalf of other agents. NEVER simulate, quote, or roleplay as Claude, ChatGPT, Gemini, or Grok. Each agent responds in their own turn. Produce ONLY your own response, nothing else.]`;
+  const appContext = `\n\n[CRITICAL INSTRUCTION — READ CAREFULLY]: You are ${agent.name} inside RobinScan, a multi-AI trading terminal. You have ONE job: output YOUR response and NOTHING else. ABSOLUTE RULES: (1) Do NOT write "[ChatGPT said]", "[Gemini said]", "[Grok said]", "[Claude said]" or any variation. (2) Do NOT simulate or impersonate any other AI. (3) Do NOT write a full conversation. (4) Output ONLY your own single response — raw text, no name prefix, no labels. The system handles attribution. If you write more than one agent's response you have failed your only task.]`;
 
-  // Unique nonce per call to prevent Claude's duplicate-prompt detection from firing
-  const nonce = `\n\n[call-id:${Date.now()}-${modelKey}]`;
+  // Unique nonce per call to prevent duplicate-prompt detection from firing
+  const nonce = `\n\n[call-id:${Date.now()}-${modelKey}-${Math.random().toString(36).slice(2)}]`;
+  // Final turn: explicitly tell the model whose turn it is
+  const finalTurn = { role: 'user', content: `It is now ${agent.name}'s turn to respond. Output only your response as ${agent.name}. Do not write for any other AI.` };
   const systemContent = personaText + tagInstructions + timeContext + appContext + (modeConstraint ? `\n\n${modeConstraint}` : '') + nonce;
   const messages = [
     { role: 'system', content: systemContent },
     ...apiMessages,
+    finalTurn,
   ];
 
   /* Proxy path when deployed on Vercel — key lives server-side */
