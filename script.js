@@ -2,7 +2,7 @@
 const AI_MODELS = {
   chatgpt: {
     id: 'chatgpt', name: 'ChatGPT',
-    model_id: 'openai/gpt-4o',
+    model_id: 'meta-llama/llama-3.3-70b-instruct:free',
     color: '#FFFFFF', ttsRate: 1.05, ttsPitch: 1.0,
     persona: (others) =>
       `You are ChatGPT (GPT-4o) — the Strategy Node of Omni4.
@@ -13,7 +13,7 @@ RULES: Max 3 sharp sentences. Under 60 words total. Direct. NEVER speak FOR othe
   },
   claude: {
     id: 'claude', name: 'Claude',
-    model_id: 'anthropic/claude-3.5-haiku',
+    model_id: 'mistralai/mistral-nemo:free',
     color: '#A3A3A3', ttsRate: 0.95, ttsPitch: 0.9,
     persona: (others) =>
       `You are Claude (Anthropic) — the Logic Node of Omni4.
@@ -24,7 +24,7 @@ RULES: Max 3 sharp sentences. Under 60 words total. Take clear positions. NEVER 
   },
   gemini: {
     id: 'gemini', name: 'Gemini',
-    model_id: 'google/gemini-2.5-flash',
+    model_id: 'google/gemini-2.0-flash-lite-preview-02-05:free',
     color: '#525252', ttsRate: 1.0, ttsPitch: 1.1,
     persona: (others) =>
       `You are Gemini (Google DeepMind) — the Data Node of Omni4.
@@ -35,7 +35,7 @@ RULES: Max 3 sharp sentences. Under 60 words total. NEVER speak FOR other AIs or
   },
   grok: {
     id: 'grok', name: 'Grok',
-    model_id: 'x-ai/grok-2-mini',
+    model_id: 'qwen/qwen-2.5-72b-instruct:free',
     color: '#CCFF00', ttsRate: 1.1, ttsPitch: 1.2,
     persona: (others) =>
       `You are Grok (xAI) — the Signal Node of Omni4.
@@ -803,7 +803,14 @@ async function sendMessage() {
       if (tokenData) {
         // Build the lore section if available
         let loreSection = '';
-        if (loreData) {
+        if (!loreData) {
+          loreSection = '
+[COIN CULTURAL CONTEXT]:
+- Token Name: ' + tokenData.name + '
+- Ticker: ' + tokenData.symbol + '
+- Note: Extended lore not found on launchpad. Analyze the memetic potential of the name and ticker itself.
+';
+        } else if (loreData) {
           loreSection = `\n[COIN LORE FROM PONSFAMILY]:\n`;
           if (loreData.description) loreSection += `- Creator's Description: "${loreData.description}"\n`;
           if (loreData.twitter) loreSection += `- Twitter: ${loreData.twitter}\n`;
@@ -823,7 +830,7 @@ async function sendMessage() {
           `Vol>MC=huge interest (organic if trending up, bots if flat/down). Vol<10% MC=dead. Vol up + price flat=smart money selling into buys.\n` +
           `Rug flags: $500k MC in <5min=sniped; no Twitter/TG=anon; polished roadmap on ponsfamily=red flag; generic name (INU/MOON)=weak narrative.\n` +
           `Bonding curve tops at ~$69k MC. Buying $50k-$69k range=danger, migration dump likely. Post-Raydium dip=possible bounce.\n` +
-          `\n[YOUR ROLE]: Robinhood Chain degen. Give COLD verdict on this token using the numbers + lore. End with BUY / AVOID / WATCH + one-line reason. 80 words MAX. No disclaimers. Don't summarize others — challenge or build on their point.`;
+          `\n[YOUR ROLE]: Robinhood Chain degen. Give COLD verdict on this token using the numbers. You MUST critically analyze the cultural narrative/lore of the coin's name and ticker. End with BUY / AVOID / WATCH + one-line reason. 80 words MAX. No disclaimers. Don't summarize others — challenge or build on their point.`;
 
         const chartIframe = `<div style="margin-top: 15px; border-radius: 8px; overflow: hidden; width: 100%; height: 350px;">
           <iframe width="100%" height="100%" src="https://dexscreener.com/${tokenData.chainId}/${extractedCa}?embed=1&theme=dark&trades=0&info=0" frameborder="0"></iframe>
