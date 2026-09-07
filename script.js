@@ -804,12 +804,7 @@ async function sendMessage() {
         // Build the lore section if available
         let loreSection = '';
         if (!loreData) {
-          loreSection = '
-[COIN CULTURAL CONTEXT]:
-- Token Name: ' + tokenData.name + '
-- Ticker: ' + tokenData.symbol + '
-- Note: Extended lore not found on launchpad. Analyze the memetic potential of the name and ticker itself.
-';
+          loreSection = "\n[COIN CULTURAL CONTEXT]:\n- Token Name: " + tokenData.name + "\n- Ticker: " + tokenData.symbol + "\n- Note: Extended lore not found on launchpad. Analyze the memetic potential of the name and ticker itself.\n";
         } else if (loreData) {
           loreSection = `\n[COIN LORE FROM PONSFAMILY]:\n`;
           if (loreData.description) loreSection += `- Creator's Description: "${loreData.description}"\n`;
