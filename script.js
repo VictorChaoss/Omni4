@@ -13,7 +13,7 @@ RULES: Max 3 sharp sentences. Under 60 words total. Direct. NEVER speak FOR othe
   },
   claude: {
     id: 'claude', name: 'Claude',
-    model_id: 'mistralai/mistral-large-2411',
+    model_id: 'anthropic/claude-3.5-haiku',
     color: '#A3A3A3', ttsRate: 0.95, ttsPitch: 0.9,
     persona: (others) =>
       `You are Claude (Anthropic) — the Logic Node of Omni4.
@@ -35,7 +35,7 @@ RULES: Max 3 sharp sentences. Under 60 words total. NEVER speak FOR other AIs or
   },
   grok: {
     id: 'grok', name: 'Grok',
-    model_id: 'x-ai/grok-3-mini',
+    model_id: 'x-ai/grok-2-mini',
     color: '#CCFF00', ttsRate: 1.1, ttsPitch: 1.2,
     persona: (others) =>
       `You are Grok (xAI) — the Signal Node of Omni4.
