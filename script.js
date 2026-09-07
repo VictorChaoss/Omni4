@@ -24,7 +24,7 @@ RULES: Max 3 sharp sentences. Under 60 words total. Take clear positions. NEVER 
   },
   gemini: {
     id: 'gemini', name: 'Gemini',
-    model_id: 'google/gemini-flash-1.5',
+    model_id: 'google/gemini-2.0-flash-001',
     color: '#525252', ttsRate: 1.0, ttsPitch: 1.1,
     persona: (others) =>
       `You are Gemini (Google DeepMind) — the Data Node of RobinScan.
