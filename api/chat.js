@@ -273,6 +273,14 @@ export default async function handler(req, res) {
     ...(cfg.extraHeaders || {}),
   };
 
+  
+  // Bypass OpenRouter duplicate prompt detection by appending a unique invisible seed
+  if (safeMessages.length > 0 && safeMessages[0].role === "system") {
+      safeMessages[0].content += " \n[Seed: " + Math.random().toString(36).substring(7) + "]";
+  } else if (safeMessages.length > 0) {
+      safeMessages[safeMessages.length - 1].content += " \n[Seed: " + Math.random().toString(36).substring(7) + "]";
+  }
+
   const upstreamBody = {
     model: apiModel,
     messages: safeMessages,
