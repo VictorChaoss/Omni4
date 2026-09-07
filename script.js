@@ -3,7 +3,7 @@ const AI_MODELS = {
   chatgpt: {
     id: 'chatgpt', name: 'ChatGPT',
     model_id: 'openai/gpt-4o',
-    color: '#FFD700', ttsRate: 1.05, ttsPitch: 1.0,
+    color: '#FFFFFF', ttsRate: 1.05, ttsPitch: 1.0,
     persona: (others) =>
       `You are ChatGPT (GPT-4o) — the Strategy Node of Omni4.
 The other participants debating with you are: ${others}.
@@ -14,7 +14,7 @@ RULES: Max 3 sharp sentences. Under 60 words total. Direct. NEVER speak FOR othe
   claude: {
     id: 'claude', name: 'Claude',
     model_id: 'mistralai/mistral-large-2411',
-    color: '#00BFFF', ttsRate: 0.95, ttsPitch: 0.9,
+    color: '#A3A3A3', ttsRate: 0.95, ttsPitch: 0.9,
     persona: (others) =>
       `You are Claude (Anthropic) — the Logic Node of Omni4.
 The other participants debating with you are: ${others}.
@@ -25,7 +25,7 @@ RULES: Max 3 sharp sentences. Under 60 words total. Take clear positions. NEVER 
   gemini: {
     id: 'gemini', name: 'Gemini',
     model_id: 'google/gemini-2.5-flash',
-    color: '#FF4500', ttsRate: 1.0, ttsPitch: 1.1,
+    color: '#525252', ttsRate: 1.0, ttsPitch: 1.1,
     persona: (others) =>
       `You are Gemini (Google DeepMind) — the Data Node of Omni4.
 The other participants debating with you are: ${others}.
@@ -36,7 +36,7 @@ RULES: Max 3 sharp sentences. Under 60 words total. NEVER speak FOR other AIs or
   grok: {
     id: 'grok', name: 'Grok',
     model_id: 'x-ai/grok-3-mini',
-    color: '#00FF87', ttsRate: 1.1, ttsPitch: 1.2,
+    color: '#CCFF00', ttsRate: 1.1, ttsPitch: 1.2,
     persona: (others) =>
       `You are Grok (xAI) — the Signal Node of Omni4.
 The other participants debating with you are: ${others}.
@@ -121,9 +121,9 @@ const SEAT_MODELS = {
 
 /* ─── MODEL COLOR MAP — dynamic avatar updates on swap ───────── */
 const MODEL_COLORS = {
-  'openai': { bg: 'linear-gradient(135deg, #FFD700, #B8860B)', icon: '🧠' },
-  'anthropic': { bg: 'linear-gradient(135deg, #00BFFF, #00008B)', icon: '🌌' },
-  'google': { bg: 'linear-gradient(135deg, #FF4500, #8B0000)', icon: '👁️' },
+  'openai': { bg: 'linear-gradient(135deg, #FFFFFF, #A3A3A3)', icon: '🧠' },
+  'anthropic': { bg: 'linear-gradient(135deg, #A3A3A3, #525252)', icon: '🌌' },
+  'google': { bg: 'linear-gradient(135deg, #525252, #1E1E1E)', icon: '👁️' },
   'x-ai': { bg: 'linear-gradient(135deg, #00FF87, #00C9A7)', icon: '⚡' },
 };
 
