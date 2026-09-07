@@ -24,7 +24,7 @@ RULES: Max 3 sharp sentences. Under 60 words total. Take clear positions. NEVER 
   },
   gemini: {
     id: 'gemini', name: 'Gemini',
-    model_id: 'google/gemini-2.0-flash-001',
+    model_id: 'google/gemini-2.5-flash-preview-09-2025',
     color: '#525252', ttsRate: 1.0, ttsPitch: 1.1,
     persona: (others) =>
       `You are Gemini (Google DeepMind) — the Data Node of RobinScan.
@@ -35,7 +35,7 @@ RULES: Max 3 sharp sentences. Under 60 words total. NEVER speak FOR other AIs or
   },
   grok: {
     id: 'grok', name: 'Grok',
-    model_id: 'x-ai/grok-2-mini',
+    model_id: 'x-ai/grok-4.6',
     color: '#CCFF00', ttsRate: 1.1, ttsPitch: 1.2,
     persona: (others) =>
       `You are Grok (xAI) — the Signal Node of RobinScan.
